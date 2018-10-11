@@ -1,2 +1,2 @@
 # SJTU-Data_Structure
-This repository includes code for data structure practices completed in SJTU
+This repository includes codes for data structure practices completed in SJTU
