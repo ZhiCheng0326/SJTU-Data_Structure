@@ -59,7 +59,6 @@ class LongInt
         LongInt(const LongInt &c);
         LongInt &operator=(const LongInt &right);
         int getLen()const{return len;}
-        void setLen(int x){len = x;}
         ~LongInt(){}
 
     private:
@@ -149,7 +148,7 @@ istream &operator >>(istream &is, LongInt &n)
         x = is.get();
         ++len;
     }
-    n.setLen(len);
+    n.len = len;
     return is;
 }
 
