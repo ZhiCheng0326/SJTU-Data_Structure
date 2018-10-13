@@ -18,8 +18,8 @@ class Itr
 
      public:
         Itr(Node *p) {current = p;}
-        Itr(const Itr &c){current = c.current;}         //copy constructor
         Node *getNode(){return current;}                //return current node pointing by pointer
+        void setCurr(Node *c){current = c;}
         void operator++() {current = current->next; }   //for iteration
 };
 
@@ -27,8 +27,8 @@ class cirDoublyLinkedList
 {
     public:
         cirDoublyLinkedList(){this->head = NULL; this->rear = NULL;};
-        void create(int d);                         //create a list of data
-        void removeNode(Node *temp);                //remove the given Node
+        void create(int d);                             //create a list of data
+        void removeNode(Node *temp);                    //remove the given Node
         Itr start() {return Itr(head);}
         ~cirDoublyLinkedList(){delete lastNode;};
         Node *lastNode;
@@ -39,7 +39,7 @@ class cirDoublyLinkedList
         Node *rear;
 };
 
-void cirDoublyLinkedList::create(int d)     //create a circle of d number elements.
+void cirDoublyLinkedList::create(int d)                 //create a circle of d number elements.
 {
     Node *temp;
     for(int i=1; i<=d; ++i){
@@ -76,11 +76,10 @@ int Josephus(cirDoublyLinkedList &lA, int len)
         ++p;
         ++counter;
         if(counter == 3){
-            Node *temp = p.getNode()->next;
-            Itr q = temp;                           //store the next node
+            Node *temp = p.getNode()->next;         //store the next node
             lA.removeNode(p.getNode());             //remove the 3rd node
             --len;
-            p = q;
+            p.setCurr(temp);                        //set Itr pointer to the next node
             counter = 1;
         }
     }
@@ -90,7 +89,7 @@ int Josephus(cirDoublyLinkedList &lA, int len)
 
 int main()
 {
-    int n = 20;
+    int n = 7;                      //set number of nodes in the Josephus circle
     cirDoublyLinkedList ListA;
     ListA.create(n);
     int ans = Josephus(ListA,n);    //conduct the Josephus process
