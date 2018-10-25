@@ -146,10 +146,10 @@ int main()
     }
 
     if(!(sa.isEmpty()) || !matched){
-       cout << "Match failed!"<<endl;
+       outfile << "Match failed!"<<endl;
     }
     else{
-        cout << "Matched!" << endl;
+        outfile << "Matched!" << endl;
     }
     infile.close();
     outfile.close();
