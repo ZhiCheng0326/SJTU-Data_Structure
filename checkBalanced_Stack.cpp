@@ -13,30 +13,33 @@ Using stack to check balanced statements for "begin-end" and "if-then-else"in Pa
 
 using namespace std;
 
+template <class T>
 struct Node
 {
-    Node *next;
+    Node<T> *next;
     int data;
 };
 
+template <class T>
 class Stack
 {
     public:
         Stack(){top=NULL;};
-        Node *getTop(){return top;};
-        void push(int x);
-        int pop();
+        Node<T> *getTop(){return top;};
+        void push(T x);
+        T pop();
         bool isEmpty(){return (top == NULL);};
         ~Stack();
 
     private:
-        Node *top;
+        Node<T> *top;
 
 };
 
-void Stack::push(int x)
+template <class T>
+void Stack<T>::push(T x)
 {
-    Node *temp = new Node;
+    Node<T> *temp = new Node<T>;
     temp->data = x;
     if(isEmpty()){
         temp->next = NULL;
@@ -48,11 +51,12 @@ void Stack::push(int x)
     top = temp;
 }
 
-int Stack::pop()
+template <class T>
+T Stack<T>::pop()
 {
-    int x;
+    T x;
     if(!isEmpty()){
-        Node *temp = top->next;
+        Node<T> *temp = top->next;
         x = top->data;
         delete top;
         top = temp;
@@ -63,9 +67,10 @@ int Stack::pop()
     return x;
 }
 
-Stack::~Stack()
+template <class T>
+Stack<T>::~Stack()
 {
-    Node *temp = top;
+    Node<T> *temp = top;
     while(top){
         top = top->next;
         delete temp;
@@ -97,8 +102,8 @@ int searchArr(char *word)
     return 0;
 }
 
-
-bool checkMatch(int loc, Stack &sa, bool &prevThen)
+template <class T>
+bool checkMatch(int loc, Stack<T> &sa, bool &prevThen)
 {
     int category = loc/10;
     int pos = loc%10;
@@ -124,12 +129,22 @@ bool checkMatch(int loc, Stack &sa, bool &prevThen)
         return 0;
     }
     return 1;
+}
 
+template <class T>
+void outputResult(Stack<T> &sa, bool matched, ofstream &outfile)
+{
+    if(!(sa.isEmpty()) || !matched){
+       cout << "Match failed!"<<endl;
+    }
+    else{
+        cout << "Matched!" << endl;
+    }
 }
 
 int main()
 {
-    Stack sa;
+    Stack<int> sa;
 
     char x[6];                      //to store the match word
     bool prevThen = false;          //true means "if-then" statement exist
@@ -145,18 +160,9 @@ int main()
         if(!matched) break;
     }
 
-    if(!(sa.isEmpty()) || !matched){
-       cout << "Match failed!"<<endl;
-    }
-    else{
-        cout << "Matched!" << endl;
-    }
+    outputResult(sa, matched, outfile);
+
     infile.close();
     outfile.close();
     return 0;
 }
-/*  Notes:
-    char **p = wordlist;
-    cout << *(p+1) <<endl;
-    cout << strcmp(x,*p);
-*/
