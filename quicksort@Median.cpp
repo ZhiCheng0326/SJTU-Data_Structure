@@ -64,12 +64,12 @@ void quicksort(array<T, N> &arr, int low, int high)
 
 int main()
 {
-    array<int, 9> arr = {7,8,2,2,10,10,19,36,4};
+    array<int, 7> arr = {7,8,2,10,19,36,4};
 
     quicksort(arr,0,arr.size()-1);
 
     for(int i=0; i<arr.size(); ++i){
-        cout << arr[i] << ' ';      //output: 2 2 2 7 8 10 10 19 36
+        cout << arr[i] << ' ';      //output: 2 4 7 8 10 19 36
     }
 
     cout << endl;
